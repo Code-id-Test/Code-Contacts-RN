@@ -181,7 +181,11 @@ export default ({ route, navigation }) => {
     return {
       message: DATA.message,
       data: DATA.data.map(item =>
-        `${item.firstName} ${item.lastName}`.includes(search) ? item : null,
+        `${item.firstName} ${item.lastName}`
+          .toLowerCase()
+          .includes(search.toLowerCase())
+          ? item
+          : null,
       ),
     };
   }, [search]);
