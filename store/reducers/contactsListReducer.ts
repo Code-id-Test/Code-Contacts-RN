@@ -1,7 +1,7 @@
 import { GET_CONTACTS_LIST, SET_ERROR } from '../constants';
 
 const initialState = {
-  data: [],
+  data: '',
   error: null,
 };
 

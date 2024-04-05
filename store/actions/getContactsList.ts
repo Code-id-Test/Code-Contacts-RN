@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { GET_CONTACTS_LIST, SET_ERROR } from '../constants';
+import { Base64 } from 'js-base64';
+import { ContactsListProps_Data } from '../../src/types/dataTypes';
 
 interface GetContactsListProps {
   onSuccess?: () => void;
@@ -21,19 +23,20 @@ export default (props: GetContactsListProps) => {
       })
       .then(res => {
         if (res.status === 200) {
-          // const data: ContactsListProps_Data[] = res.data.data
-          //   .slice(0, 1)
-          //   .map((item: ContactsListProps_Data) => {
-          //     if (item.photo) {
-          //       const photo = item.photo?.includes('base64')
-          //         ? Base64.decode(item.photo.split(',')[1])
-          //         : item.photo;
-          //       return { ...item, photo };
-          //     }
-          //   });
+          let data = res.data.data.map((item: ContactsListProps_Data) => {
+            if (item.photo) {
+              const photo = item.photo?.includes('base64') ? '' : item.photo;
+              return { ...item, photo };
+            }
+          });
+          data = JSON.parse(JSON.stringify(data).replace(/'/g, '"'));
+          const resData = {
+            message: res.data.message,
+            data,
+          };
           dispatch({
             type: GET_CONTACTS_LIST,
-            payload: res.data.data,
+            payload: resData,
           });
           if (props.onSuccess) {
             props.onSuccess();
@@ -41,7 +44,12 @@ export default (props: GetContactsListProps) => {
         }
       })
       .catch(err => {
-        dispatch(setError(err));
+        // dispatch(
+        //   setError({
+        //     type: SET_ERROR,
+        //     payload: err?.message,
+        //   }),
+        // );
         if (props.onError) {
           props.onError();
         }

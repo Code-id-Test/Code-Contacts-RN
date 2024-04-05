@@ -12,10 +12,15 @@ export default (props: LocationListProps) => {
   const [imageIsValid, setImageIsValid] = useState(true);
 
   const parsedImage = useMemo(() => {
-    if (!imageIsValid) {
-      return require('../assets/images/avatar.png');
+    if (
+      imageIsValid &&
+      (props.leftImage?.includes('.png') ||
+        props.leftImage?.includes('.jpg') ||
+        props.leftImage?.includes('.jpeg'))
+    ) {
+      return { uri: props.leftImage };
     }
-    return { uri: props.leftImage };
+    return require('../assets/images/avatar.png');
   }, [props.leftImage, imageIsValid]);
 
   return (
