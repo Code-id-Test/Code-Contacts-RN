@@ -73,6 +73,9 @@ export default (props: FormProps) => {
                 onPress={() => {
                   textInputRef.current?.clear();
                   textInputRef.current?.focus();
+                  if (props.onChangeText) {
+                    props.onChangeText('');
+                  }
                 }}
               />
             ) : null}

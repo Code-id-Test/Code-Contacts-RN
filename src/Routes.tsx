@@ -10,7 +10,16 @@ export default () => {
       initialRouteName="Home"
       screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="NewContact" component={NewContactScreen} />
+      <Stack.Screen
+        name="NewContact"
+        component={NewContactScreen}
+        options={{
+          title: 'Create a Contact',
+          headerShown: true,
+          headerBackButtonMenuEnabled: true,
+          // headerRight
+        }}
+      />
     </Stack.Navigator>
   );
 };

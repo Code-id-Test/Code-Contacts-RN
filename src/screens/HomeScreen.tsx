@@ -47,13 +47,23 @@ export default ({ route, navigation }) => {
   const contactsListData = useMemo<ContactsListProps>(() => {
     return {
       message: contactsListQuery?.message,
-      data: contactsListQuery?.data?.map(item =>
-        `${item.firstName} ${item.lastName}`
-          .toLowerCase()
-          .includes(search.toLowerCase())
-          ? item
-          : null,
-      ),
+      data: contactsListQuery?.data
+        ?.sort((a, b) => {
+          if (a.firstName < b.firstName) {
+            return -1;
+          }
+          if (a.firstName > b.firstName) {
+            return 1;
+          }
+          return 0;
+        })
+        .map(item =>
+          `${item.firstName} ${item.lastName}`
+            .toLowerCase()
+            .includes(search.toLowerCase())
+            ? item
+            : null,
+        ),
     };
   }, [contactsListQuery, search]);
 

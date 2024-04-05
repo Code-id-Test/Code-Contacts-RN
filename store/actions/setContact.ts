@@ -28,7 +28,7 @@ export default (props: GetContactsListProps) => {
         if (res.status === 200) {
           dispatch({
             type: SET_CONTACT,
-            payload: res.data.data,
+            payload: res.data,
           });
           if (props.onSuccess) {
             props.onSuccess();

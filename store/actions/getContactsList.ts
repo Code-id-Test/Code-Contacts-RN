@@ -44,12 +44,7 @@ export default (props: GetContactsListProps) => {
         }
       })
       .catch(err => {
-        // dispatch(
-        //   setError({
-        //     type: SET_ERROR,
-        //     payload: err?.message,
-        //   }),
-        // );
+        dispatch(setError(err));
         if (props.onError) {
           props.onError();
         }
