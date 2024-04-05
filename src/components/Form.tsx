@@ -65,15 +65,17 @@ export default (props: FormProps) => {
                 }
               }}
             />
-            <Icon
-              name="close"
-              size={20}
-              style={styles.icon}
-              onPress={() => {
-                textInputRef.current?.clear();
-                textInputRef.current?.focus();
-              }}
-            />
+            {input ? (
+              <Icon
+                name="close"
+                size={20}
+                style={styles.icon}
+                onPress={() => {
+                  textInputRef.current?.clear();
+                  textInputRef.current?.focus();
+                }}
+              />
+            ) : null}
           </View>
         </View>
       )}

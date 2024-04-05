@@ -1,43 +1,33 @@
-import React from 'react';
-import {
-  Image,
-  ImageSourcePropType,
-  Pressable,
-  StyleSheet,
-  View,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import React, { useMemo, useState } from 'react';
+import { Image, Pressable, StyleSheet, View } from 'react-native';
 import { Spacer, Text } from '.';
 
 interface LocationListProps {
   leftImage: string;
   label: string;
-  rightLabel: string;
-  rightLabelIcon: ImageSourcePropType | null;
   onPress: () => void;
 }
 
 export default (props: LocationListProps) => {
+  const [imageIsValid, setImageIsValid] = useState(true);
+
+  const parsedImage = useMemo(() => {
+    if (!imageIsValid) {
+      return require('../assets/images/avatar.png');
+    }
+    return { uri: props.leftImage };
+  }, [props.leftImage, imageIsValid]);
+
   return (
     <Pressable style={styles.container} onPress={props.onPress}>
-      <View style={styles.iconAndLabel}>
+      <View style={styles.imageAndLabel}>
         <Image
-          source={{ uri: props.leftImage }}
-          style={{
-            width: 36,
-            height: 36,
-            borderRadius: 30,
-          }}
+          onError={() => setImageIsValid(false)}
+          source={parsedImage}
+          style={styles.image}
         />
         <Spacer width={4} />
         <Text style={styles.text}> {props.label}</Text>
-      </View>
-      <View style={styles.weather}>
-        <Text>{props.rightLabel}</Text>
-        <Spacer width={8} />
-        {props.rightLabelIcon ? (
-          <Image style={styles.weatherIcon} source={props.rightLabelIcon} />
-        ) : null}
       </View>
     </Pressable>
   );
@@ -49,26 +39,17 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     padding: 12,
   },
-  iconAndLabel: {
+  imageAndLabel: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
   },
-  icon: {
-    width: 20,
-    height: 20,
-    color: '#000',
-    backgroundColor: 'transparent',
+  image: {
+    width: 36,
+    height: 36,
+    borderRadius: 30,
   },
   text: {
     textAlign: 'left',
-  },
-  weather: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  weatherIcon: {
-    width: 30,
-    height: 30,
   },
 });

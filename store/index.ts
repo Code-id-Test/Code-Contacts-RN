@@ -1,8 +1,9 @@
-import { contactsListReducer } from './reducers';
+import { contactsListReducer, setContactReducer } from './reducers';
 import { configureStore } from '@reduxjs/toolkit';
 
 const rootReducer = () => ({
   contactsList: contactsListReducer,
+  setContact: setContactReducer,
 });
 
 const preloadedState = {};

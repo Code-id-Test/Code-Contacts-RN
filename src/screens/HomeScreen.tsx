@@ -6,18 +6,25 @@ import {
   SafeAreaView,
   StyleSheet,
   TouchableWithoutFeedback,
-  View,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { getContactsList } from '../../store/actions';
-import { Form, List, Loading, Spacer, Text } from '../components';
+import { FloatingAddButton, Form, List, Spacer, Text } from '../components';
 import { ContactsListProps } from '../types/dataTypes';
 
 const RenderContactItem = ({ item }: { item: any }) => {
   if (item) {
     const { firstName, lastName, photo } = item;
-    // console.log(item);
-    return <List leftImage={photo} label={`${firstName} ${lastName}`} />;
+
+    return (
+      <List
+        leftImage={photo}
+        label={`${firstName} ${lastName}`}
+        onPress={() => {
+          //
+        }}
+      />
+    );
   }
 };
 
@@ -203,12 +210,11 @@ export default ({ route, navigation }) => {
     }
   };
 
-  useEffect(() => {
-    if (contactsListQuery && !calls) {
-      // console.log(contactsListQuery);
-      setCalls(true);
-    }
-  }, [contactsListQuery, calls]);
+  // useEffect(() => {
+  //   if (contactsListQuery && !calls) {
+  //     setCalls(true);
+  //   }
+  // }, [contactsListQuery, calls]);
 
   useEffect(() => {
     if (!calls) {
@@ -242,6 +248,11 @@ export default ({ route, navigation }) => {
           data={contactsListData.data}
           renderItem={RenderContactItem}
           keyExtractor={item => item?.id}
+        />
+        <FloatingAddButton
+          onPress={() => {
+            //
+          }}
         />
       </SafeAreaView>
     </TouchableWithoutFeedback>
