@@ -25,6 +25,6 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 14,
     borderRadius: 8,
-    backgroundColor: 'pink',
+    backgroundColor: '#FFC0CB',
   },
 });

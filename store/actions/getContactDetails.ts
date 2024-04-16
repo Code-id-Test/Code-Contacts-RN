@@ -1,33 +1,30 @@
 import axios from 'axios';
-import { SET_CONTACT, SET_ERROR } from '../constants';
+import { GET_CONTACT_DETAILS, SET_ERROR } from '../constants';
 import { ContactProps_Data } from '../../src/types/dataTypes';
 
-interface GetContactsListProps {
-  data: Partial<ContactProps_Data>;
+interface GetContactDetailsProps {
+  contactId: string;
   onSuccess?: () => void;
   onError?: () => void;
 }
 
-const setError = err => {
+const setError = (err: any) => {
   return {
     type: SET_ERROR,
     payload: err,
   };
 };
 
-export default (props: GetContactsListProps) => {
-  return async dispatch => {
+export default (props: GetContactDetailsProps) => {
+  return async (dispatch: any) => {
     return axios
-      .post('https://contact.herokuapp.com/contact', props.data, {
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
+      .get(`https://contact.herokuapp.com/contact/${props.contactId}`, {
+        headers: { Accept: 'application/json' },
       })
       .then(res => {
         if (res.status === 200) {
           dispatch({
-            type: SET_CONTACT,
+            type: GET_CONTACT_DETAILS,
             payload: res.data,
           });
           if (props.onSuccess) {

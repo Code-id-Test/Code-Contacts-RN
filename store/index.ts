@@ -1,5 +1,10 @@
 import { thunk } from 'redux-thunk';
-import { contactsListReducer, setContactReducer } from './reducers';
+import {
+  contactDetailsReducer,
+  contactsListReducer,
+  deleteContactReducer,
+  setContactReducer,
+} from './reducers';
 import {
   applyMiddleware,
   combineReducers,
@@ -7,8 +12,10 @@ import {
 } from '@reduxjs/toolkit';
 
 const rootReducer = combineReducers({
+  contactDetails: contactDetailsReducer,
   contactsList: contactsListReducer,
   setContact: setContactReducer,
+  deleteContact: deleteContactReducer,
 });
 
 // const preloadedState = {};

@@ -1,9 +1,9 @@
-export interface ContactsListProps {
+export interface ContactProps {
   message: string;
-  data: ContactsListProps_Data[];
+  data: ContactProps_Data[];
 }
 
-export interface ContactsListProps_Data {
+export interface ContactProps_Data {
   id: string;
   firstName: string;
   lastName: string;

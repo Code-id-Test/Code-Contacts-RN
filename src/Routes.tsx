@@ -1,6 +1,6 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { HomeScreen, NewContactScreen } from './screens';
+import { ContactDetailsScreen, HomeScreen, NewContactScreen } from './screens';
 
 const Stack = createNativeStackNavigator();
 
@@ -10,6 +10,16 @@ export default () => {
       initialRouteName="Home"
       screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen
+        name="ContactDetails"
+        component={ContactDetailsScreen}
+        options={{
+          title: 'Contact Details',
+          headerShown: true,
+          headerBackButtonMenuEnabled: true,
+          // headerRight
+        }}
+      />
       <Stack.Screen
         name="NewContact"
         component={NewContactScreen}

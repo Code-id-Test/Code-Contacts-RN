@@ -3,34 +3,28 @@ import {
   Dimensions,
   FlatList,
   Keyboard,
-  ListRenderItemInfo,
   SafeAreaView,
   StyleSheet,
   TouchableWithoutFeedback,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { useIsFocused } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { getContactsList } from '../../store/actions';
-import {
-  FloatingAddButton,
-  Form,
-  List,
-  Loading,
-  Spacer,
-  Text,
-} from '../components';
-import { ContactsListProps, ContactsListProps_Data } from '../types/dataTypes';
+import { FloatingAddButton, Form, List, Loading, Spacer } from '../components';
+import { ContactProps, ContactProps_Data } from '../types/dataTypes';
 
-const RenderContactItem = ({ item }: { item: ContactsListProps_Data }) => {
+const RenderContactItem = ({ item }: { item: ContactProps_Data }) => {
+  const navigation = useNavigation();
+
   if (item) {
-    const { firstName, lastName, photo } = item;
+    const { id, firstName, lastName, photo } = item;
 
     return (
       <List
         leftImage={photo}
         label={`${firstName} ${lastName}`}
         onPress={() => {
-          //
+          navigation.navigate('ContactDetails', { id });
         }}
       />
     );
@@ -46,7 +40,7 @@ export default ({ route, navigation }) => {
   const { data: contactsListQuery } = useSelector(
     (state: any) => state.contactsList,
   );
-  const contactsListData = useMemo<ContactsListProps>(() => {
+  const contactsListData = useMemo<ContactProps>(() => {
     return {
       message: contactsListQuery?.message,
       data: contactsListQuery?.data

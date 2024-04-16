@@ -24,7 +24,10 @@ export default (props: LocationListProps) => {
   }, [props.leftImage, imageIsValid]);
 
   return (
-    <Pressable style={styles.container} onPress={props.onPress}>
+    <Pressable
+      android_ripple={{ color: '#FFC0CBAA' }}
+      style={styles.container}
+      onPress={props.onPress}>
       <View style={styles.imageAndLabel}>
         <Image
           onError={() => setImageIsValid(false)}

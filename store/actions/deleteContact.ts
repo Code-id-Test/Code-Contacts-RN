@@ -1,9 +1,8 @@
 import axios from 'axios';
-import { SET_CONTACT, SET_ERROR } from '../constants';
-import { ContactProps_Data } from '../../src/types/dataTypes';
+import { DELETE_CONTACT, SET_ERROR } from '../constants';
 
-interface GetContactsListProps {
-  data: Partial<ContactProps_Data>;
+interface DeleteContactProps {
+  contactId: string;
   onSuccess?: () => void;
   onError?: () => void;
 }
@@ -15,19 +14,18 @@ const setError = err => {
   };
 };
 
-export default (props: GetContactsListProps) => {
+export default (props: DeleteContactProps) => {
   return async dispatch => {
     return axios
-      .post('https://contact.herokuapp.com/contact', props.data, {
+      .delete(`https://contact.herokuapp.com/contact/${props.contactId}`, {
         headers: {
-          'Content-Type': 'application/json',
           Accept: 'application/json',
         },
       })
       .then(res => {
         if (res.status === 200) {
           dispatch({
-            type: SET_CONTACT,
+            type: DELETE_CONTACT,
             payload: res.data,
           });
           if (props.onSuccess) {

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { GET_CONTACTS_LIST, SET_ERROR } from '../constants';
-import { ContactsListProps_Data } from '../../src/types/dataTypes';
+import { ContactProps_Data } from '../../src/types/dataTypes';
 
 interface GetContactsListProps {
   onSuccess?: () => void;
@@ -22,7 +22,7 @@ export default (props: GetContactsListProps) => {
       })
       .then(res => {
         if (res.status === 200) {
-          let data = res.data.data.map((item: ContactsListProps_Data) => {
+          let data = res.data.data.map((item: ContactProps_Data) => {
             if (item.photo) {
               const photo = item.photo?.includes('base64') ? '' : item.photo;
               return { ...item, photo };

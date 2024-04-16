@@ -1,5 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Image, ScrollView, StyleSheet, TextInput, View } from 'react-native';
+import React, { useMemo, useRef, useState } from 'react';
+import {
+  Image,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  TextInput,
+  View,
+} from 'react-native';
 import { useDispatch } from 'react-redux';
 import {
   Asset,
@@ -9,6 +16,7 @@ import {
 import { Button, Spacer } from '../components';
 import { setContact } from '../../store/actions';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface NewContactProps {
   input: {
@@ -34,6 +42,7 @@ export default (props: NewContactProps) => {
     maxWidth: 2000,
   };
   const dispatch = useDispatch();
+  const insets = useSafeAreaInsets();
   const lastNameRef = useRef<TextInput>(null);
   const ageRef = useRef<TextInput>(null);
   const [selectedImage, setSelectedImage] = useState('');
@@ -45,6 +54,13 @@ export default (props: NewContactProps) => {
       age: 0,
     },
   );
+
+  const ageValue = useMemo(() => {
+    if (input?.age === 0 || input?.age.toString() === 'NaN') {
+      return '';
+    }
+    return input?.age.toString();
+  }, [input?.age]);
 
   const openImagePicker = () => {
     return launchImageLibrary(options, res => {
@@ -71,150 +87,161 @@ export default (props: NewContactProps) => {
     );
   };
 
-  useEffect(() => {
-    console.log(selectedImage);
-  }, [selectedImage]);
-
   return (
-    <ScrollView
-      contentContainerStyle={{
-        flex: 1,
-        padding: 16,
-      }}>
-      <View style={{ flex: 1 }}>
-        <View
-          style={{
-            alignSelf: 'center',
-            width: 100,
-            height: 100,
-          }}>
-          <Image
-            source={
-              selectedImage
-                ? { uri: selectedImage }
-                : require('../assets/images/avatar.png')
-            }
+    <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+        <View style={styles.flex}>
+          <View
             style={{
-              flex: 1,
-              width: '100%',
-              height: '100%',
-              borderRadius: 50,
+              alignSelf: 'center',
+              width: 100,
+              height: 100,
+            }}>
+            <Image
+              source={
+                selectedImage
+                  ? { uri: selectedImage }
+                  : require('../assets/images/avatar.png')
+              }
+              style={{
+                flex: 1,
+                width: '100%',
+                height: '100%',
+                borderRadius: 50,
+              }}
+              resizeMode="cover"
+            />
+          </View>
+          <Spacer height={20} />
+          <Button
+            label="Pick an Image"
+            style={{
+              alignSelf: 'center',
+              width: 110,
+              height: 36,
+              paddingVertical: 0,
+              paddingHorizontal: 0,
             }}
-            resizeMode="cover"
+            textStyle={{ fontSize: 12 }}
+            onPress={openImagePicker}
           />
-        </View>
-        <Spacer height={20} />
-        <Button
-          label="Pick an Image"
-          style={{
-            alignSelf: 'center',
-            width: 110,
-            height: 36,
-            paddingVertical: 0,
-            paddingHorizontal: 0,
-          }}
-          textStyle={{ fontSize: 12 }}
-          onPress={openImagePicker}
-        />
 
-        <Spacer height={24} />
+          <Spacer height={24} />
 
-        <View style={styles.row}>
-          <Icon name="user" size={20} color="#000" />
-          <Spacer width={8} />
-          <TextInput
-            style={styles.input}
-            placeholder="First name"
-            placeholderTextColor="#666"
-            value={input?.firstName}
-            returnKeyType="next"
-            onChangeText={v => {
-              setInput({
-                ...input,
-                firstName: v,
-              });
-              if (props.onChangeText) {
-                props.onChangeText({
+          <View style={styles.row}>
+            <Icon name="user" size={20} color="#000" style={styles.icon} />
+            <Spacer width={12} />
+            <TextInput
+              style={styles.input}
+              placeholder="First name"
+              placeholderTextColor="#666"
+              value={input?.firstName}
+              returnKeyType="next"
+              onChangeText={v => {
+                setInput({
                   ...input,
                   firstName: v,
                 });
-              }
-            }}
-            onSubmitEditing={() => {
-              lastNameRef.current?.focus();
-            }}
-          />
-        </View>
+                if (props.onChangeText) {
+                  props.onChangeText({
+                    ...input,
+                    firstName: v,
+                  });
+                }
+              }}
+              onSubmitEditing={() => {
+                lastNameRef.current?.focus();
+              }}
+            />
+          </View>
 
-        <Spacer height={12} />
+          <Spacer height={12} />
 
-        <View style={styles.row}>
-          <Spacer width={16} />
-          <TextInput
-            ref={lastNameRef}
-            style={styles.input}
-            placeholder="Last name"
-            placeholderTextColor="#666"
-            value={input?.lastName}
-            returnKeyType="next"
-            onChangeText={v => {
-              setInput({
-                ...input,
-                lastName: v,
-              });
-              if (props.onChangeText) {
-                props.onChangeText({
+          <View style={styles.row}>
+            <Spacer width={26} />
+            <TextInput
+              ref={lastNameRef}
+              style={styles.input}
+              placeholder="Last name"
+              placeholderTextColor="#666"
+              value={input?.lastName}
+              returnKeyType="next"
+              onChangeText={v => {
+                setInput({
                   ...input,
                   lastName: v,
                 });
-              }
-            }}
-            onSubmitEditing={() => {
-              ageRef.current?.focus();
-            }}
-          />
-        </View>
+                if (props.onChangeText) {
+                  props.onChangeText({
+                    ...input,
+                    lastName: v,
+                  });
+                }
+              }}
+              onSubmitEditing={() => {
+                ageRef.current?.focus();
+              }}
+            />
+          </View>
 
-        <Spacer height={12} />
+          <Spacer height={12} />
 
-        <View style={styles.row}>
-          <Spacer width={16} />
-          <TextInput
-            ref={ageRef}
-            style={styles.input}
-            placeholder="Age"
-            placeholderTextColor="#666"
-            value={input?.age.toString()}
-            // keyboardType="numeric"
-            returnKeyType="next"
-            onChangeText={v => {
-              setInput({
-                ...input,
-                age: Number(v),
-              });
-              if (props.onChangeText) {
-                props.onChangeText({
+          <View style={styles.row}>
+            <Icon name="pagelines" size={20} color="#000" style={styles.icon} />
+            <Spacer width={12} />
+            <TextInput
+              ref={ageRef}
+              style={styles.input}
+              placeholder="Age"
+              placeholderTextColor="#666"
+              value={ageValue}
+              // keyboardType="numeric"
+              returnKeyType="next"
+              onChangeText={v => {
+                setInput({
                   ...input,
                   age: Number(v),
                 });
-              }
-            }}
-            onSubmitEditing={() => {
-              ageRef.current?.blur();
-            }}
-          />
+                if (props.onChangeText) {
+                  props.onChangeText({
+                    ...input,
+                    age: Number(v),
+                  });
+                }
+              }}
+              onSubmitEditing={() => {
+                ageRef.current?.blur();
+              }}
+            />
+          </View>
         </View>
-      </View>
-
-      <Button label="Save" onPress={onSubmit} />
-    </ScrollView>
+      </ScrollView>
+      <Button
+        label="Save"
+        style={{ marginBottom: insets.bottom }}
+        onPress={onSubmit}
+      />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  flex: {
+    flex: 1,
+  },
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  scrollViewContainer: {
+    padding: 16,
+  },
   row: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  icon: {
+    marginTop: -10,
   },
   input: {
     flex: 1,
