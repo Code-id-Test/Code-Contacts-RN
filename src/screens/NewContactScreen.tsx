@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Image, ScrollView, StyleSheet, TextInput, View } from 'react-native';
 import { Spacer } from '../components';
-import Icons from 'react-native-feather1s';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 interface NewContactProps {
   input: {
@@ -21,7 +21,7 @@ export default (props: NewContactProps) => {
       <Image source={{ uri: require('../assets/images/avatar.png') }} />
       <Spacer height={24} />
       <View style={{ flexDirection: 'row' }}>
-        <Icons name="person" size={20} />
+        <Icon name="person" size={20} />
         <TextInput
           style={styles.input}
           placeholder="First name"

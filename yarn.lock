@@ -4741,11 +4741,6 @@ joi@^17.2.1:
     "@sideway/formula" "^3.0.1"
     "@sideway/pinpoint" "^2.0.0"
 
-js-base64@^3.7.7:
-  version "3.7.7"
-  resolved "https://registry.yarnpkg.com/js-base64/-/js-base64-3.7.7.tgz#e51b84bf78fbf5702b9541e2cb7bfcb893b43e79"
-  integrity sha512-7rCnleh0z2CkXhH67J8K1Ytz0b2Y+yxTPL+/KOJoa20hfnVQ/3/T6W/KflYI4bRHRagNeXeU2bkNGI3v1oS/lw==
-
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
@@ -5789,13 +5784,6 @@ react-is@^17.0.1:
   version "17.0.2"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
-
-react-native-feather1s@^0.2.3:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/react-native-feather1s/-/react-native-feather1s-0.2.3.tgz#1fe18e69d5b719e84464c194414d8128f057927b"
-  integrity sha512-MFdfurGW1aGzMGOM1iuKHViXFrfAcvjWfgBbXBigMp2SGiTGFv51hdkN8UHwUaQcLZsUeaoDBP78yQCiRlRAZA==
-  dependencies:
-    prop-types "^15.7.2"
 
 react-native-safe-area-context@^4.9.0:
   version "4.9.0"

@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { GET_CONTACTS_LIST, SET_ERROR } from '../constants';
-import { Base64 } from 'js-base64';
 import { ContactsListProps_Data } from '../../src/types/dataTypes';
 
 interface GetContactsListProps {
@@ -8,7 +7,7 @@ interface GetContactsListProps {
   onError?: () => void;
 }
 
-const setError = err => {
+const setError = (err: any) => {
   return {
     type: SET_ERROR,
     payload: err,
@@ -16,7 +15,7 @@ const setError = err => {
 };
 
 export default (props: GetContactsListProps) => {
-  return async dispatch => {
+  return async (dispatch: any) => {
     return axios
       .get('https://contact.herokuapp.com/contact', {
         headers: { Accept: 'application/json' },

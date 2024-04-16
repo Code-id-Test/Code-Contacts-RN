@@ -1,6 +1,6 @@
 import React from 'react';
 import { Pressable, StyleSheet } from 'react-native';
-import Icon from 'react-native-feather1s';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 interface FloatingAddButtonProps {
   onPress: () => void;
@@ -9,7 +9,7 @@ interface FloatingAddButtonProps {
 export default (props: FloatingAddButtonProps) => {
   return (
     <Pressable style={styles.pressable} onPress={props.onPress}>
-      <Icon name="plus" color="#000" size={20} thin />
+      <Icon name="plus" color="#000" size={20} />
     </Pressable>
   );
 };
