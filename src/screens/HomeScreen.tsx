@@ -9,6 +9,7 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import { useIsFocused } from '@react-navigation/native';
 import { getContactsList } from '../../store/actions';
 import {
   FloatingAddButton,
@@ -37,6 +38,7 @@ const RenderContactItem = ({ item }: { item: ContactsListProps_Data }) => {
 };
 
 export default ({ route, navigation }) => {
+  const isFocused = useIsFocused();
   const [search, setSearch] = useState('');
   const [calls, setCalls] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -79,6 +81,10 @@ export default ({ route, navigation }) => {
       );
     }
   };
+
+  useEffect(() => {
+    setCalls(false);
+  }, [isFocused]);
 
   useEffect(() => {
     if (contactsListData && !calls) {

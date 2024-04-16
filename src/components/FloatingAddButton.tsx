@@ -10,7 +10,7 @@ export default (props: FloatingAddButtonProps) => {
   return (
     <SafeAreaView>
       <Pressable style={styles.pressable} onPress={props.onPress}>
-        <Icon name="plus" color="#000" size={20} />
+        <Icon name="plus" color="#5c2233" size={20} />
       </Pressable>
     </SafeAreaView>
   );

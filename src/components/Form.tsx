@@ -67,15 +67,15 @@ export default (props: FormProps) => {
             />
             {input ? (
               <Icon
-                name="close"
+                name="x"
                 size={20}
                 style={styles.icon}
                 onPress={() => {
-                  textInputRef.current?.clear();
-                  textInputRef.current?.focus();
+                  setInput('');
                   if (props.onChangeText) {
                     props.onChangeText('');
                   }
+                  textInputRef.current?.focus();
                 }}
               />
             ) : null}
@@ -129,10 +129,11 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   icon: {
-    width: 32,
-    height: 40,
-    paddingVertical: 8,
-    paddingLeft: 8,
+    width: 36,
+    height: 36,
+    margin: 2,
+    padding: 8,
+    textAlign: 'center',
     color: '#000',
     backgroundColor: 'transparent',
   },
