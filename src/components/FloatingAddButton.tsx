@@ -1,6 +1,6 @@
 import React from 'react';
-import { Pressable, StyleSheet } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { Pressable, SafeAreaView, StyleSheet } from 'react-native';
+import Icon from 'react-native-vector-icons/Feather';
 
 interface FloatingAddButtonProps {
   onPress: () => void;
@@ -8,9 +8,11 @@ interface FloatingAddButtonProps {
 
 export default (props: FloatingAddButtonProps) => {
   return (
-    <Pressable style={styles.pressable} onPress={props.onPress}>
-      <Icon name="plus" color="#000" size={20} />
-    </Pressable>
+    <SafeAreaView>
+      <Pressable style={styles.pressable} onPress={props.onPress}>
+        <Icon name="plus" color="#000" size={20} />
+      </Pressable>
+    </SafeAreaView>
   );
 };
 
@@ -18,8 +20,8 @@ const styles = StyleSheet.create({
   pressable: {
     position: 'absolute',
     zIndex: 2,
-    right: 16,
-    bottom: 16,
+    right: 20,
+    bottom: 24,
     paddingVertical: 12,
     paddingHorizontal: 14,
     borderRadius: 8,
