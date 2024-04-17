@@ -10,7 +10,14 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { getContactsList } from '../../store/actions';
-import { FloatingAddButton, Form, List, Loading, Spacer } from '../components';
+import {
+  Empty,
+  FloatingAddButton,
+  Form,
+  List,
+  Loading,
+  Spacer,
+} from '../components';
 import { ContactProps, ContactProps_Data } from '../types/dataTypes';
 
 const RenderContactItem = ({ item }: { item: ContactProps_Data }) => {
@@ -62,6 +69,10 @@ export default ({ route, navigation }) => {
         ),
     };
   }, [contactsListQuery, search]);
+  const isEmpty = useMemo(
+    () => contactsListData.data?.find(v => !v) === null,
+    [contactsListData.data],
+  );
 
   const queryContactsHandler = () => {
     setLoading(true);
@@ -107,11 +118,15 @@ export default ({ route, navigation }) => {
           <Loading />
         ) : (
           <>
-            <FlatList
-              data={contactsListData.data}
-              renderItem={({ item }) => <RenderContactItem item={item} />}
-              keyExtractor={item => `${item?.id}-${Math.random() * 123}`}
-            />
+            {isEmpty ? (
+              <Empty />
+            ) : (
+              <FlatList
+                data={contactsListData.data}
+                renderItem={({ item }) => <RenderContactItem item={item} />}
+                keyExtractor={item => `${item?.id}-${Math.random() * 123}`}
+              />
+            )}
             <FloatingAddButton
               onPress={() => {
                 navigation.navigate('NewContact');

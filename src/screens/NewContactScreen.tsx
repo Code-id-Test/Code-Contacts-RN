@@ -112,7 +112,7 @@ export default (props: NewContactProps) => {
             setShowPickerModal(false);
             setShowURLModal(true);
           }}
-          style={{ width: '100%', padding: 12 }}>
+          style={styles.modalPressable}>
           <Text>Pick from URL ...</Text>
         </Pressable>
         <Pressable
@@ -121,7 +121,7 @@ export default (props: NewContactProps) => {
             setShowPickerModal(false);
             openImagePicker();
           }}
-          style={{ width: '100%', padding: 12 }}>
+          style={styles.modalPressable}>
           <Text>Pick an Image ...</Text>
         </Pressable>
       </Modal>
@@ -136,7 +136,7 @@ export default (props: NewContactProps) => {
           setSelectedImage(input?.photo);
           setShowURLModal(false);
         }}>
-        <View style={{ width: '100%', padding: 12 }}>
+        <View style={styles.modalPressable}>
           <TextInput
             style={styles.input}
             placeholder="Type in image URL ..."
@@ -163,37 +163,21 @@ export default (props: NewContactProps) => {
       </Modal>
       <ScrollView contentContainerStyle={styles.scrollViewContainer}>
         <View style={styles.flex}>
-          <View
-            style={{
-              alignSelf: 'center',
-              width: 100,
-              height: 100,
-            }}>
+          <View style={styles.imagePickerContainer}>
             <Image
               source={
                 selectedImage
                   ? { uri: selectedImage }
                   : require('../assets/images/avatar.png')
               }
-              style={{
-                flex: 1,
-                width: '100%',
-                height: '100%',
-                borderRadius: 50,
-              }}
+              style={styles.avatar}
               resizeMode="cover"
             />
           </View>
           <Spacer height={20} />
           <Button
             label="Pick an Image"
-            style={{
-              alignSelf: 'center',
-              width: 110,
-              height: 36,
-              paddingVertical: 0,
-              paddingHorizontal: 0,
-            }}
+            style={styles.imagePickerButton}
             textStyle={{ fontSize: 12 }}
             onPress={() => {
               setShowPickerModal(true);
@@ -294,7 +278,7 @@ export default (props: NewContactProps) => {
         disabled={submitDisabled}
         label="Save"
         style={{
-          alignSelf: 'center',
+          ...styles.submitButton,
           width: Dimensions.get('window').width - 32,
           marginBottom: insets.bottom + 16,
         }}
@@ -322,6 +306,27 @@ const styles = StyleSheet.create({
   icon: {
     marginTop: -10,
   },
+  imagePickerContainer: {
+    alignSelf: 'center',
+    width: 100,
+    height: 100,
+  },
+  avatar: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+    borderRadius: 50,
+  },
+  imagePickerButton: {
+    alignSelf: 'center',
+    width: 110,
+    height: 36,
+    paddingVertical: 0,
+    paddingHorizontal: 0,
+  },
+  submitButton: {
+    alignSelf: 'center',
+  },
   input: {
     flex: 1,
     flexDirection: 'row',
@@ -335,5 +340,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     fontSize: 16,
     marginBottom: 10,
+  },
+  modalPressable: {
+    width: '100%',
+    padding: 12,
   },
 });
