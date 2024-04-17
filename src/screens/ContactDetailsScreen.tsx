@@ -73,6 +73,7 @@ export default ({ route, navigation }) => {
           <View>
             <Modal
               visible={showModal}
+              title="Are You Sure"
               onClose={() => {
                 setShowModal(false);
               }}
@@ -80,8 +81,9 @@ export default ({ route, navigation }) => {
                 onDeleteContact();
                 setShowModal(false);
                 navigation.goBack();
-              }}
-            />
+              }}>
+              Do you want to delete this contact?
+            </Modal>
             <Text>{contactDetailsQuery.data?.photo}</Text>
             <Text>{contactDetailsQuery.data?.firstName}</Text>
             <Text>{contactDetailsQuery.data?.lastName}</Text>

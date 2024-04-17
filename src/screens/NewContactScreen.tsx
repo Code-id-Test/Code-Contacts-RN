@@ -1,6 +1,8 @@
 import React, { useMemo, useRef, useState } from 'react';
 import {
+  Dimensions,
   Image,
+  Pressable,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -13,7 +15,7 @@ import {
   MediaType,
   launchImageLibrary,
 } from 'react-native-image-picker';
-import { Button, Spacer } from '../components';
+import { Button, Modal, Spacer, Text } from '../components';
 import { setContact } from '../../store/actions';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -45,6 +47,8 @@ export default (props: NewContactProps) => {
   const insets = useSafeAreaInsets();
   const lastNameRef = useRef<TextInput>(null);
   const ageRef = useRef<TextInput>(null);
+  const [showPickerModal, setShowPickerModal] = useState(false);
+  const [showURLModal, setShowURLModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState('');
   const [input, setInput] = useState(
     props.input ?? {
@@ -61,6 +65,13 @@ export default (props: NewContactProps) => {
     }
     return input?.age.toString();
   }, [input?.age]);
+
+  const submitDisabled = useMemo(() => {
+    if (!input?.photo || !input?.firstName || !input.lastName || !input?.age) {
+      return true;
+    }
+    return false;
+  }, [input]);
 
   const openImagePicker = () => {
     return launchImageLibrary(options, res => {
@@ -89,6 +100,67 @@ export default (props: NewContactProps) => {
 
   return (
     <View style={styles.container}>
+      <Modal
+        visible={showPickerModal}
+        title="Pick an Image"
+        onClose={() => {
+          setShowPickerModal(false);
+        }}>
+        <Pressable
+          android_ripple={{ color: '#FFC0CBAA' }}
+          onPress={() => {
+            setShowPickerModal(false);
+            setShowURLModal(true);
+          }}
+          style={{ width: '100%', padding: 12 }}>
+          <Text>Pick from URL ...</Text>
+        </Pressable>
+        <Pressable
+          android_ripple={{ color: '#FFC0CBAA' }}
+          onPress={() => {
+            setShowPickerModal(false);
+            openImagePicker();
+          }}
+          style={{ width: '100%', padding: 12 }}>
+          <Text>Pick an Image ...</Text>
+        </Pressable>
+      </Modal>
+      <Modal
+        useActionButtons
+        visible={showURLModal}
+        title="Pick an Image"
+        onClose={() => {
+          setShowURLModal(false);
+        }}
+        onAccept={() => {
+          setSelectedImage(input?.photo);
+          setShowURLModal(false);
+        }}>
+        <View style={{ width: '100%', padding: 12 }}>
+          <TextInput
+            style={styles.input}
+            placeholder="Type in image URL ..."
+            placeholderTextColor="#666"
+            value={input?.photo}
+            returnKeyType="next"
+            onChangeText={v => {
+              setInput({
+                ...input,
+                photo: v,
+              });
+              if (props.onChangeText) {
+                props.onChangeText({
+                  ...input,
+                  photo: v,
+                });
+              }
+            }}
+            onSubmitEditing={() => {
+              setShowURLModal(false);
+            }}
+          />
+        </View>
+      </Modal>
       <ScrollView contentContainerStyle={styles.scrollViewContainer}>
         <View style={styles.flex}>
           <View
@@ -123,7 +195,9 @@ export default (props: NewContactProps) => {
               paddingHorizontal: 0,
             }}
             textStyle={{ fontSize: 12 }}
-            onPress={openImagePicker}
+            onPress={() => {
+              setShowPickerModal(true);
+            }}
           />
 
           <Spacer height={24} />
@@ -217,8 +291,13 @@ export default (props: NewContactProps) => {
         </View>
       </ScrollView>
       <Button
+        disabled={submitDisabled}
         label="Save"
-        style={{ marginBottom: insets.bottom }}
+        style={{
+          alignSelf: 'center',
+          width: Dimensions.get('window').width - 32,
+          marginBottom: insets.bottom + 16,
+        }}
         onPress={onSubmit}
       />
     </View>

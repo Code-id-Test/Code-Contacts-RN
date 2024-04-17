@@ -13,52 +13,65 @@ import Icon from 'react-native-vector-icons/Feather';
 import Spacer from './Spacer';
 
 interface ModalProps extends RNModalProps {
+  title: string;
   onClose: () => void;
-  onAccept: () => void;
+  useActionButtons?: boolean;
+  onAccept?: () => void;
 }
 
 export default (props: ModalProps) => {
   return (
-    <View style={styles.centeredView}>
-      <Modal animationType="fade" transparent={true} visible={props.visible}>
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <View style={styles.topContainer}>
-              <Text style={styles.modalTitle}>Title</Text>
-              <Button style={styles.buttonClose} onPress={props.onClose}>
-                <Icon name="x" style={styles.closeIcon} />
-              </Button>
-            </View>
-            <Spacer height={8} />
-            <Text style={styles.modalText}>Hello World!</Text>
+    <Modal animationType="fade" transparent={true} visible={props.visible}>
+      <Pressable style={styles.centeredView} onPress={props.onClose} />
+      <View style={styles.modalView}>
+        <View style={styles.topContainer}>
+          <Text style={styles.modalTitle}>{props.title}</Text>
+          <Button style={styles.buttonClose} onPress={props.onClose}>
+            <Icon name="x" style={styles.closeIcon} />
+          </Button>
+        </View>
+        <Spacer height={18} />
+        {typeof props.children !== 'string' ? props.children : null}
+        {props.useActionButtons ? (
+          <>
+            {typeof props.children === 'string' ? (
+              <Text style={styles.modalText}>{props.children}</Text>
+            ) : null}
             <View style={styles.modalActions}>
               <Pressable
+                android_ripple={{ color: '#FFC0CBAA' }}
                 style={styles.modalActionCancel}
                 onPress={props.onClose}>
-                <Text>CANCEL</Text>
+                <Text style={styles.modalActionCancelText}>CANCEL</Text>
               </Pressable>
-              <Pressable style={styles.modalActionOK} onPress={props.onAccept}>
+              <Pressable
+                android_ripple={{ color: '#FFC0CBAA' }}
+                style={styles.modalActionOK}
+                onPress={props.onAccept}>
                 <Text style={styles.modalActionOKText}>OK</Text>
               </Pressable>
             </View>
-          </View>
-        </View>
-      </Modal>
-    </View>
+          </>
+        ) : null}
+      </View>
+    </Modal>
   );
 };
 
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(0,0,0,0.35)',
   },
   modalView: {
+    flex: 1,
+    position: 'absolute',
+    top: Dimensions.get('window').height / 2.5,
     width: Dimensions.get('window').width - 32,
     backgroundColor: '#fff',
     borderRadius: 6,
+    alignSelf: 'center',
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {
@@ -111,12 +124,14 @@ const styles = StyleSheet.create({
     marginHorizontal: 14,
     verticalAlign: 'middle',
     color: '#000',
+    fontSize: 18,
     fontWeight: '600',
   },
   modalText: {
     marginBottom: 15,
     textAlign: 'center',
     color: '#000',
+    fontSize: 16,
   },
   modalActions: {
     flexDirection: 'row',
@@ -127,14 +142,24 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    fontSize: 18,
+    borderWidth: 0.5,
+    borderColor: '#ddd',
   },
   modalActionOK: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    fontSize: 18,
+    borderWidth: 0.5,
+    borderColor: '#ddd',
+  },
+  modalActionCancelText: {
+    fontSize: 16,
   },
   modalActionOKText: {
     color: '#FFC0CB',
+    fontSize: 16,
     fontWeight: '600',
   },
 });

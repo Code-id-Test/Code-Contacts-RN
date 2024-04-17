@@ -1,9 +1,16 @@
 import React from 'react';
-import { Pressable, StyleSheet, TextStyle, ViewStyle } from 'react-native';
+import {
+  PressableProps,
+  Pressable,
+  StyleSheet,
+  TextStyle,
+  ViewStyle,
+} from 'react-native';
 import Text from './Text';
 
-interface ButtonProps {
+interface ButtonProps extends PressableProps {
   onPress: () => void;
+  shadow?: boolean;
   transparent?: boolean;
   label?: string;
   children?: React.ReactNode;
@@ -14,13 +21,23 @@ interface ButtonProps {
 export default (props: ButtonProps) => {
   return (
     <Pressable
+      {...props}
+      // eslint-disable-next-line react-native/no-inline-styles
       style={{
+        backgroundColor: props.disabled ? '#DDD' : '#FFC0CB',
+        elevation: props.shadow ? 2 : 0,
         ...(props.transparent ? styles.buttonTransparent : styles.button),
         ...props.style,
       }}
       onPress={props.onPress}>
       {props.label ? (
-        <Text style={{ ...styles.text, ...props.textStyle }}>
+        <Text
+          // eslint-disable-next-line react-native/no-inline-styles
+          style={{
+            color: props.disabled ? '#888' : '#5C2233',
+            ...styles.text,
+            ...props.textStyle,
+          }}>
           {props.label}
         </Text>
       ) : (
@@ -37,8 +54,6 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 32,
     borderRadius: 4,
-    elevation: 3,
-    backgroundColor: '#FFC0CB',
   },
   buttonTransparent: {
     alignItems: 'center',
@@ -53,6 +68,5 @@ const styles = StyleSheet.create({
     lineHeight: 21,
     fontWeight: 'bold',
     letterSpacing: 0.25,
-    color: '#5c2233',
   },
 });
