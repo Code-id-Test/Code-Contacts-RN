@@ -1,11 +1,11 @@
 import contactDetailsReducer from './contactDetailsReducer';
 import contactsListReducer from './contactsListReducer';
 import deleteContactReducer from './deleteContactReducer';
-import setContactReducer from './setContactReducer';
+import updateContactReducer from './updateContactReducer';
 
 export {
   contactDetailsReducer,
   contactsListReducer,
   deleteContactReducer,
-  setContactReducer,
+  updateContactReducer,
 };

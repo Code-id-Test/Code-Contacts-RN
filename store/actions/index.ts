@@ -1,6 +1,13 @@
+import createContact from './createContact';
 import deleteContact from './deleteContact';
 import getContactDetails from './getContactDetails';
 import getContactsList from './getContactsList';
-import setContact from './setContact';
+import updateContact from './updateContact';
 
-export { deleteContact, getContactDetails, getContactsList, setContact };
+export {
+  createContact,
+  deleteContact,
+  getContactDetails,
+  getContactsList,
+  updateContact,
+};

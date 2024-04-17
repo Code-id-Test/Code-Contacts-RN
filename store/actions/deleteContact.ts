@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { DELETE_CONTACT, SET_ERROR } from '../constants';
+import { DELETE_CONTACT, DELETE_CONTACT_ERROR } from '../constants';
 
 interface DeleteContactProps {
   contactId: string;
@@ -9,19 +9,15 @@ interface DeleteContactProps {
 
 const setError = err => {
   return {
-    type: SET_ERROR,
+    type: DELETE_CONTACT_ERROR,
     payload: err,
   };
 };
 
 export default (props: DeleteContactProps) => {
-  return async dispatch => {
-    return axios
-      .delete(`https://contact.herokuapp.com/contact/${props.contactId}`, {
-        headers: {
-          Accept: 'application/json',
-        },
-      })
+  return async (dispatch: any) =>
+    await axios
+      .delete(`https://contact.herokuapp.com/contact/${props.contactId}`)
       .then(res => {
         if (res.status === 200) {
           dispatch({
@@ -39,5 +35,4 @@ export default (props: DeleteContactProps) => {
           props.onError();
         }
       });
-  };
 };

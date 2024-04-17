@@ -1,19 +1,19 @@
-import { GET_CONTACTS_LIST, GET_CONTACTS_LIST_ERROR } from '../constants';
+import { UPDATE_CONTACT, UPDATE_CONTACT_ERROR } from '../constants';
 
 const initialState = {
-  data: '',
+  data: [],
   error: null,
 };
 
 export default (state = initialState, action: any) => {
   switch (action.type) {
-    case GET_CONTACTS_LIST:
+    case UPDATE_CONTACT:
       return {
         data: action.payload,
         error: null,
       };
 
-    case GET_CONTACTS_LIST_ERROR:
+    case UPDATE_CONTACT_ERROR:
       return {
         ...state,
         error: action.payload,

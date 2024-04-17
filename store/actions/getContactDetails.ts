@@ -1,6 +1,5 @@
 import axios from 'axios';
-import { GET_CONTACT_DETAILS, SET_ERROR } from '../constants';
-import { ContactProps_Data } from '../../src/types/dataTypes';
+import { GET_CONTACT_DETAILS, GET_CONTACT_DETAILS_ERROR } from '../constants';
 
 interface GetContactDetailsProps {
   contactId: string;
@@ -10,14 +9,14 @@ interface GetContactDetailsProps {
 
 const setError = (err: any) => {
   return {
-    type: SET_ERROR,
+    type: GET_CONTACT_DETAILS_ERROR,
     payload: err,
   };
 };
 
 export default (props: GetContactDetailsProps) => {
-  return async (dispatch: any) => {
-    return axios
+  return async (dispatch: any) =>
+    axios
       .get(`https://contact.herokuapp.com/contact/${props.contactId}`, {
         headers: { Accept: 'application/json' },
       })
@@ -38,5 +37,4 @@ export default (props: GetContactDetailsProps) => {
           props.onError();
         }
       });
-  };
 };

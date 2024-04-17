@@ -1,4 +1,4 @@
-import { GET_CONTACT_DETAILS, SET_ERROR } from '../constants';
+import { GET_CONTACT_DETAILS, GET_CONTACT_DETAILS_ERROR } from '../constants';
 
 const initialState = {
   data: '',
@@ -13,7 +13,7 @@ export default (state = initialState, action: any) => {
         error: null,
       };
 
-    case SET_ERROR:
+    case GET_CONTACT_DETAILS_ERROR:
       return {
         ...state,
         error: action.payload,

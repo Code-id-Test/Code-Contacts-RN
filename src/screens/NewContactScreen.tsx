@@ -3,7 +3,6 @@ import {
   Dimensions,
   Image,
   Pressable,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   TextInput,
@@ -15,10 +14,11 @@ import {
   MediaType,
   launchImageLibrary,
 } from 'react-native-image-picker';
-import { Button, Modal, Spacer, Text } from '../components';
-import { setContact } from '../../store/actions';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { useNavigation } from '@react-navigation/core';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { updateContact } from '../../store/actions';
+import { Button, Modal, Spacer, Text } from '../components';
 
 interface NewContactProps {
   input: {
@@ -44,6 +44,7 @@ export default (props: NewContactProps) => {
     maxWidth: 2000,
   };
   const dispatch = useDispatch();
+  const navigation = useNavigation();
   const insets = useSafeAreaInsets();
   const lastNameRef = useRef<TextInput>(null);
   const ageRef = useRef<TextInput>(null);
@@ -92,15 +93,18 @@ export default (props: NewContactProps) => {
 
   const onSubmit = () => {
     dispatch(
-      setContact({
+      updateContact({
+        contactId: '',
         data: input,
       }),
     );
+    navigation.goBack();
   };
 
   return (
     <View style={styles.container}>
       <Modal
+        useActionButtons={false}
         visible={showPickerModal}
         title="Pick an Image"
         onClose={() => {

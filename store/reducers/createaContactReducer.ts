@@ -1,4 +1,4 @@
-import { SET_CONTACT, SET_ERROR } from '../constants';
+import { CREATE_CONTACT, CREATE_CONTACT_ERROR } from '../constants';
 
 const initialState = {
   data: [],
@@ -7,13 +7,13 @@ const initialState = {
 
 export default (state = initialState, action: any) => {
   switch (action.type) {
-    case SET_CONTACT:
+    case CREATE_CONTACT:
       return {
         data: action.payload,
         error: null,
       };
 
-    case SET_ERROR:
+    case CREATE_CONTACT_ERROR:
       return {
         ...state,
         error: action.payload,

@@ -1,4 +1,4 @@
-import { DELETE_CONTACT, SET_ERROR } from '../constants';
+import { DELETE_CONTACT, DELETE_CONTACT_ERROR } from '../constants';
 
 const initialState = {
   data: '',
@@ -9,12 +9,11 @@ export default (state = initialState, action: any) => {
   switch (action.type) {
     case DELETE_CONTACT:
       return {
-        ...state,
-        data: state.data.filter(),
+        data: action.payload,
         error: null,
       };
 
-    case SET_ERROR:
+    case DELETE_CONTACT_ERROR:
       return {
         ...state,
         error: action.payload,

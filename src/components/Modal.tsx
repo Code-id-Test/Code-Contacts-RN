@@ -15,11 +15,12 @@ import Spacer from './Spacer';
 interface ModalProps extends RNModalProps {
   title: string;
   onClose: () => void;
-  useActionButtons?: boolean;
+  useActionButtons: boolean;
+  hideCancelAction?: boolean;
   onAccept?: () => void;
 }
 
-export default (props: ModalProps) => {
+export default ({ hideCancelAction = false, ...props }: ModalProps) => {
   return (
     <Modal animationType="fade" transparent={true} visible={props.visible}>
       <Pressable style={styles.centeredView} onPress={props.onClose} />
@@ -38,12 +39,14 @@ export default (props: ModalProps) => {
               <Text style={styles.modalText}>{props.children}</Text>
             ) : null}
             <View style={styles.modalActions}>
-              <Pressable
-                android_ripple={{ color: '#FFC0CBAA' }}
-                style={styles.modalActionCancel}
-                onPress={props.onClose}>
-                <Text style={styles.modalActionCancelText}>CANCEL</Text>
-              </Pressable>
+              {hideCancelAction ? null : (
+                <Pressable
+                  android_ripple={{ color: '#FFC0CBAA' }}
+                  style={styles.modalActionCancel}
+                  onPress={props.onClose}>
+                  <Text style={styles.modalActionCancelText}>CANCEL</Text>
+                </Pressable>
+              )}
               <Pressable
                 android_ripple={{ color: '#FFC0CBAA' }}
                 style={styles.modalActionOK}
@@ -67,7 +70,7 @@ const styles = StyleSheet.create({
   modalView: {
     flex: 1,
     position: 'absolute',
-    top: Dimensions.get('window').height / 2.5,
+    top: Dimensions.get('window').height / 2.8,
     width: Dimensions.get('window').width - 32,
     backgroundColor: '#fff',
     borderRadius: 6,
@@ -135,7 +138,7 @@ const styles = StyleSheet.create({
   },
   modalActions: {
     flexDirection: 'row',
-    height: 40,
+    height: 55,
     bottom: 0,
   },
   modalActionCancel: {
@@ -144,18 +147,23 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     fontSize: 18,
     borderWidth: 0.5,
+    borderRightWidth: 0.5,
     borderColor: '#ddd',
+    borderBottomLeftRadius: 6,
   },
   modalActionOK: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     fontSize: 18,
-    borderWidth: 0.5,
+    borderTopWidth: 0.5,
+    borderLeftWidth: 0.5,
     borderColor: '#ddd',
+    borderBottomRightRadius: 6,
   },
   modalActionCancelText: {
     fontSize: 16,
+    color: '#666',
   },
   modalActionOKText: {
     color: '#FFC0CB',

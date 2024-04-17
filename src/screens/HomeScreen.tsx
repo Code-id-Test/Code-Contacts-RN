@@ -40,9 +40,9 @@ const RenderContactItem = ({ item }: { item: ContactProps_Data }) => {
 
 export default ({ route, navigation }) => {
   const isFocused = useIsFocused();
+  const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState('');
   const [calls, setCalls] = useState(false);
-  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const { data: contactsListQuery } = useSelector(
     (state: any) => state.contactsList,

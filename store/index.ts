@@ -2,19 +2,21 @@ import { thunk } from 'redux-thunk';
 import {
   contactDetailsReducer,
   contactsListReducer,
-  deleteContactReducer,
-  setContactReducer,
+  updateContactReducer,
 } from './reducers';
 import {
   applyMiddleware,
   combineReducers,
   createStore,
 } from '@reduxjs/toolkit';
+import deleteContactReducer from './reducers/deleteContactReducer';
+import createaContactReducer from './reducers/createaContactReducer';
 
 const rootReducer = combineReducers({
   contactDetails: contactDetailsReducer,
   contactsList: contactsListReducer,
-  setContact: setContactReducer,
+  createContact: createaContactReducer,
+  updateContact: updateContactReducer,
   deleteContact: deleteContactReducer,
 });
 
