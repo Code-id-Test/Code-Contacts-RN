@@ -24,14 +24,12 @@ const RenderContactItem = ({ item }: { item: ContactProps_Data }) => {
   const navigation = useNavigation();
 
   if (item) {
-    const { id, firstName, lastName, photo } = item;
-
     return (
       <List
-        leftImage={photo}
-        label={`${firstName} ${lastName}`}
+        leftImage={item.photo}
+        label={`${item.firstName} ${item.lastName}`}
         onPress={() => {
-          navigation.navigate('ContactDetails', { id });
+          navigation.navigate('ContactDetails', { id: item.id });
         }}
       />
     );

@@ -18,6 +18,7 @@ import { Button, Loading, Modal, Spacer, Text } from '../components';
 import { getContactDetails, updateContact } from '../../store/actions';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import FastImage from 'react-native-fast-image';
 
 interface ContactDetailsProps {
   input: {
@@ -82,19 +83,6 @@ export default (props: Partial<ContactDetailsProps>) => {
     return false;
   }, [input]);
 
-  const parsedImage = useMemo(() => {
-    if (
-      imageIsValid &&
-      selectedImage &&
-      (contactDetailsQuery?.data?.photo?.includes('.png') ||
-        contactDetailsQuery?.data?.photo?.includes('.jpg') ||
-        contactDetailsQuery?.data?.photo?.includes('.jpeg'))
-    ) {
-      return { uri: selectedImage };
-    }
-    return require('../assets/images/avatar.png');
-  }, [selectedImage, contactDetailsQuery?.data?.photo, imageIsValid]);
-
   const queryContactDetailsHandler = (contactId: string) => {
     setLoading(true);
 
@@ -118,7 +106,7 @@ export default (props: Partial<ContactDetailsProps>) => {
         console.log('Image picker error: ', res.errorMessage);
       } else {
         let imageUri = (res as Asset).uri ?? res.assets?.[0]?.uri ?? '';
-        setSelectedImage(imageUri);
+        setSelectedImage(imageUri.replace('http://', 'https://'));
         setInput({
           ...input,
           photo: imageUri,
@@ -158,7 +146,9 @@ export default (props: Partial<ContactDetailsProps>) => {
 
   useEffect(() => {
     setInput(contactDetailsQuery?.data);
-    setSelectedImage(contactDetailsQuery?.data?.photo);
+    setSelectedImage(
+      contactDetailsQuery?.data?.photo.replace('http://', 'https://'),
+    );
   }, [contactDetailsQuery?.data]);
 
   return (
@@ -197,7 +187,7 @@ export default (props: Partial<ContactDetailsProps>) => {
           setShowURLModal(false);
         }}
         onAccept={() => {
-          setSelectedImage(input?.photo);
+          setSelectedImage(input?.photo.replace('http://', 'https://'));
           setShowURLModal(false);
         }}>
         <View style={styles.modalPressable}>
@@ -245,9 +235,10 @@ export default (props: Partial<ContactDetailsProps>) => {
           <ScrollView contentContainerStyle={styles.scrollViewContainer}>
             <View style={styles.flex}>
               <View style={styles.imagePickerContainer}>
-                <Image
+                <FastImage
                   onError={() => setImageIsValid(false)}
-                  source={parsedImage}
+                  defaultSource={require('../assets/images/avatar.png')}
+                  source={{ uri: selectedImage }}
                   style={styles.avatar}
                   resizeMode="cover"
                 />

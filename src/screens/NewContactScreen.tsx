@@ -19,6 +19,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { updateContact } from '../../store/actions';
 import { Button, Modal, Spacer, Text } from '../components';
+import FastImage from 'react-native-fast-image';
 
 interface NewContactProps {
   input: {
@@ -168,12 +169,9 @@ export default (props: NewContactProps) => {
       <ScrollView contentContainerStyle={styles.scrollViewContainer}>
         <View style={styles.flex}>
           <View style={styles.imagePickerContainer}>
-            <Image
-              source={
-                selectedImage
-                  ? { uri: selectedImage }
-                  : require('../assets/images/avatar.png')
-              }
+            <FastImage
+              defaultSource={require('../assets/images/avatar.png')}
+              source={{ uri: selectedImage }}
               style={styles.avatar}
               resizeMode="cover"
             />

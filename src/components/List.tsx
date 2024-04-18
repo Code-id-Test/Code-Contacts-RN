@@ -1,6 +1,7 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { Image, Pressable, StyleSheet, View } from 'react-native';
 import { Spacer, Text } from '.';
+import FastImage from 'react-native-fast-image';
 
 interface LocationListProps {
   leftImage: string;
@@ -9,33 +10,23 @@ interface LocationListProps {
 }
 
 export default (props: LocationListProps) => {
-  const [imageIsValid, setImageIsValid] = useState(true);
-
-  const parsedImage = useMemo(() => {
-    if (
-      imageIsValid &&
-      (props.leftImage?.includes('.png') ||
-        props.leftImage?.includes('.jpg') ||
-        props.leftImage?.includes('.jpeg'))
-    ) {
-      return { uri: props.leftImage };
-    }
-    return require('../assets/images/avatar.png');
-  }, [props.leftImage, imageIsValid]);
-
   return (
     <Pressable
       android_ripple={{ color: '#FFC0CBAA' }}
       style={styles.container}
       onPress={props.onPress}>
       <View style={styles.imageAndLabel}>
-        <Image
-          onError={() => setImageIsValid(false)}
-          source={parsedImage}
+        <FastImage
           style={styles.image}
+          resizeMode={FastImage.resizeMode.cover}
+          defaultSource={require('../assets/images/avatar.png')}
+          source={{
+            uri: props.leftImage.replace('http://', 'https://'),
+            priority: FastImage.priority.normal,
+          }}
         />
-        <Spacer width={4} />
-        <Text style={styles.text}> {props.label}</Text>
+        <Spacer width={12} />
+        <Text style={styles.text}>{props.label}</Text>
       </View>
     </Pressable>
   );
