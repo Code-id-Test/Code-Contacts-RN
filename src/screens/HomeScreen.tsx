@@ -70,7 +70,7 @@ export default ({ route, navigation }) => {
     };
   }, [contactsListQuery, search]);
   const isEmpty = useMemo(
-    () => contactsListData.data?.find(v => !v) === null,
+    () => contactsListData.data?.find(v => v) === null,
     [contactsListData.data],
   );
 

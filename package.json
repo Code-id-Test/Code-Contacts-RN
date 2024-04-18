@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
+    "gradle:build": "./gradlew clean build",
     "ios:prep": "bundle install && npx pod-install",
     "ios": "react-native run-ios --simulator=\"iPhone 15 Pro Max\" --mode Debug",
     "lint": "eslint .",
