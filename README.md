@@ -29,15 +29,15 @@
 
 Start by cloning the repo to your local
 
-
+```
 git clone git@github.com:flumiie/Code-Contacts-RN.git
-
+```
 
 Then install the node packages
 
-
+```
 yarn install
-
+```
 
 Don't forget to connect your device or emulator with adb for Android, then run yarn android to install the debug mode app to your device
 
