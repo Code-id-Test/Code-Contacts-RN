@@ -51,7 +51,6 @@ export default (props: Partial<ContactDetailsProps>) => {
   const ageRef = useRef<TextInput>(null);
   const [loading, setLoading] = useState(false);
   const [calls, setCalls] = useState(false);
-  const [imageIsValid, setImageIsValid] = useState(true);
   const [showPickerModal, setShowPickerModal] = useState(false);
   const [showURLModal, setShowURLModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
@@ -236,11 +235,10 @@ export default (props: Partial<ContactDetailsProps>) => {
             <View style={styles.flex}>
               <View style={styles.imagePickerContainer}>
                 <FastImage
-                  onError={() => setImageIsValid(false)}
                   defaultSource={require('../assets/images/avatar.png')}
                   source={{ uri: selectedImage }}
+                  resizeMode={FastImage.resizeMode.cover}
                   style={styles.avatar}
-                  resizeMode="cover"
                 />
               </View>
               <Spacer height={20} />

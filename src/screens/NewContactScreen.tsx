@@ -172,8 +172,8 @@ export default (props: NewContactProps) => {
             <FastImage
               defaultSource={require('../assets/images/avatar.png')}
               source={{ uri: selectedImage }}
+              resizeMode={FastImage.resizeMode.cover}
               style={styles.avatar}
-              resizeMode="cover"
             />
           </View>
           <Spacer height={20} />

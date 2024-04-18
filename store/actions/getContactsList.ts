@@ -22,16 +22,9 @@ export default (props: GetContactsListProps) => {
       })
       .then(res => {
         if (res.status === 200) {
-          let data = res.data.data.map((item: ContactProps_Data) => {
-            if (item.photo) {
-              const photo = item.photo?.includes('base64') ? '' : item.photo;
-              return { ...item, photo };
-            }
-          });
-          data = JSON.parse(JSON.stringify(data).replace(/'/g, '"'));
           const resData = {
             message: res.data.message,
-            data,
+            data: JSON.parse(JSON.stringify(res.data.data).replace(/'/g, '"')),
           };
           dispatch({
             type: GET_CONTACTS_LIST,

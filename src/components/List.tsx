@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react';
-import { Image, Pressable, StyleSheet, View } from 'react-native';
+import React from 'react';
+import { Pressable, StyleSheet, View } from 'react-native';
 import { Spacer, Text } from '.';
 import FastImage from 'react-native-fast-image';
 
@@ -16,15 +16,14 @@ export default (props: LocationListProps) => {
       style={styles.container}
       onPress={props.onPress}>
       <View style={styles.imageAndLabel}>
-        <FastImage
-          style={styles.image}
-          resizeMode={FastImage.resizeMode.cover}
-          defaultSource={require('../assets/images/avatar.png')}
-          source={{
-            uri: props.leftImage.replace('http://', 'https://'),
-            priority: FastImage.priority.normal,
-          }}
-        />
+        <View style={styles.imageContainer}>
+          <FastImage
+            defaultSource={require('../assets/images/avatar.png')}
+            source={{ uri: props.leftImage.replace('http://', 'https://') }}
+            resizeMode={FastImage.resizeMode.cover}
+            style={styles.image}
+          />
+        </View>
         <Spacer width={12} />
         <Text style={styles.text}>{props.label}</Text>
       </View>
@@ -43,9 +42,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  image: {
+  imageContainer: {
     width: 36,
     height: 36,
+  },
+  image: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
     borderRadius: 30,
   },
   text: {

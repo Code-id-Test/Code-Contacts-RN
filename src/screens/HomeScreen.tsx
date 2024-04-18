@@ -20,10 +20,15 @@ import {
 } from '../components';
 import { ContactProps, ContactProps_Data } from '../types/dataTypes';
 
-const RenderContactItem = ({ item }: { item: ContactProps_Data }) => {
-  const navigation = useNavigation();
-
+const RenderContactItem = ({
+  item,
+  navigation,
+}: {
+  item: ContactProps_Data;
+  navigation: any;
+}) => {
   if (item) {
+    console.log(item);
     return (
       <List
         leftImage={item.photo}
@@ -121,7 +126,9 @@ export default ({ route, navigation }) => {
             ) : (
               <FlatList
                 data={contactsListData.data}
-                renderItem={({ item }) => <RenderContactItem item={item} />}
+                renderItem={({ item }) => (
+                  <RenderContactItem item={item} navigation={navigation} />
+                )}
                 keyExtractor={item => `${item?.id}-${Math.random() * 123}`}
               />
             )}
