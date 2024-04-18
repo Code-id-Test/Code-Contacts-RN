@@ -1,14 +1,17 @@
 <!-- ABOUT THE PROJECT -->
 
+###
+
 <p align="center">
-  <img src="https://github.com/flumiie/Code-Contacts-RN/assets/8995187/49f2c0f2-c508-4a39-8953-8f9797325efa"/>
+  <img src="https://github.com/Code-id-Test/Code-Contacts-RN/assets/8995187/30a4dfe1-5283-43a5-a469-52e0f00c1bb7"/>
 </p>
+
 <h1 align="center">Code Contacts</h1>
 
 <p align="center">
-  <img src="https://github.com/flumiie/Code-Contacts-RN/assets/8995187/3c9ce72f-097c-4bea-af01-b303f99ebe54" alt="Contact List" style="width: 25%; height: 25%" />
-  <img src="https://github.com/flumiie/Code-Contacts-RN/assets/8995187/4d60a1d2-34e6-4698-a639-120e2e470fe6" alt="Contact Details" style="width: 25%; height: 25%" />
-  <img src="https://github.com/flumiie/Code-Contacts-RN/assets/8995187/1735dde1-84df-4123-97f5-780f504c545c" alt="Image Picker" style="width: 25%; height: 25%" />
+  <img src="https://github.com/Code-id-Test/Code-Contacts-RN/assets/8995187/0797705c-0e38-41c3-9201-3d06c3e677b2" alt="Contact List" style="width: 25%; height: 25%" />
+  <img src="https://github.com/Code-id-Test/Code-Contacts-RN/assets/8995187/8716f25c-4ff4-45d8-bf00-4a5f3c9f8d89" alt="Image Picker" style="width: 25%; height: 25%" />
+  <img src="https://github.com/Code-id-Test/Code-Contacts-RN/assets/8995187/653ec6a0-5b09-4807-8fd3-b1e44e1f0505" alt="Contact Details" style="width: 25%; height: 25%" />
 </p>
 
 <h3 align="center">Built With</h3>
