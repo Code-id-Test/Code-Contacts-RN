@@ -8,7 +8,7 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { useIsFocused } from '@react-navigation/native';
 import { getContactsList } from '../../store/actions';
 import {
   Empty,
@@ -40,7 +40,7 @@ const RenderContactItem = ({
   }
 };
 
-export default ({ route, navigation }) => {
+export default ({ navigation }) => {
   const isFocused = useIsFocused();
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState('');

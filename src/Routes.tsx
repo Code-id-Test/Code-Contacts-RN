@@ -13,7 +13,6 @@ const Stack = createNativeStackNavigator();
 export default () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const [loading, setLoading] = useState(false);
   const [params, setParams] = useState<any>();
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
@@ -41,7 +40,6 @@ export default () => {
           setShowConfirmationModal(false);
         }}
         onAccept={() => {
-          setLoading(true);
           dispatch(
             deleteContact({
               contactId: params.id,

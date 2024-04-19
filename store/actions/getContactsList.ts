@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { GET_CONTACTS_LIST, GET_CONTACTS_LIST_ERROR } from '../constants';
-import { ContactProps_Data } from '../../src/types/dataTypes';
 
 interface GetContactsListProps {
   onSuccess?: () => void;

@@ -1,7 +1,6 @@
 import React, { useMemo, useRef, useState } from 'react';
 import {
   Dimensions,
-  Image,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -177,7 +176,7 @@ export default (props: NewContactProps) => {
           <Button
             label="Pick an Image"
             style={styles.imagePickerButton}
-            textStyle={{ fontSize: 12 }}
+            textStyle={styles.imagePickerButtonText}
             onPress={() => {
               setShowPickerModal(true);
             }}
@@ -322,6 +321,9 @@ const styles = StyleSheet.create({
     height: 36,
     paddingVertical: 0,
     paddingHorizontal: 0,
+  },
+  imagePickerButtonText: {
+    fontSize: 12,
   },
   submitButton: {
     alignSelf: 'center',
