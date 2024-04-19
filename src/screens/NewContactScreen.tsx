@@ -77,18 +77,15 @@ export default (props: NewContactProps) => {
 
   const openImagePicker = () => {
     return launchImageLibrary(options, res => {
-      if (res.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (res.errorCode) {
-        console.log('Image picker error: ', res.errorMessage);
-      } else {
-        let imageUri = (res as Asset).uri ?? res.assets?.[0]?.uri ?? '';
-        setSelectedImage(imageUri);
-        setInput({
-          ...input,
-          photo: imageUri,
-        });
+      if (res.errorCode) {
+        return null;
       }
+      let imageUri = (res as Asset).uri ?? res.assets?.[0]?.uri ?? '';
+      setSelectedImage(imageUri);
+      setInput({
+        ...input,
+        photo: imageUri,
+      });
     });
   };
 

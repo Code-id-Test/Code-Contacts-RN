@@ -99,18 +99,15 @@ export default (props: Partial<ContactDetailsProps>) => {
 
   const openImagePicker = () => {
     return launchImageLibrary(options, res => {
-      if (res.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (res.errorCode) {
-        console.log('Image picker error: ', res.errorMessage);
-      } else {
-        let imageUri = (res as Asset).uri ?? res.assets?.[0]?.uri ?? '';
-        setSelectedImage(imageUri.replace('http://', 'https://'));
-        setInput({
-          ...input,
-          photo: imageUri,
-        });
+      if (res.errorCode) {
+        return null;
       }
+      let imageUri = (res as Asset).uri ?? res.assets?.[0]?.uri ?? '';
+      setSelectedImage(imageUri.replace('http://', 'https://'));
+      setInput({
+        ...input,
+        photo: imageUri,
+      });
     });
   };
 
@@ -126,7 +123,6 @@ export default (props: Partial<ContactDetailsProps>) => {
   };
 
   useEffect(() => {
-    console.log(updateContactData);
     if (updateContactData.length > 1) {
       props.navigation.goBack();
     }

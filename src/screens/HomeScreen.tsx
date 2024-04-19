@@ -28,7 +28,6 @@ const RenderContactItem = ({
   navigation: any;
 }) => {
   if (item) {
-    console.log(item);
     return (
       <List
         leftImage={item.photo}
