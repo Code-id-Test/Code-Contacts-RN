@@ -68,10 +68,10 @@ export default (props: Partial<ContactDetailsProps>) => {
   });
 
   const ageValue = useMemo(() => {
-    if (input?.age === 0 || input?.age.toString() === 'NaN') {
+    if (input?.age === 0 || input?.age?.toString() === 'NaN') {
       return '';
     }
-    return input?.age.toString();
+    return input?.age?.toString();
   }, [input?.age]);
 
   const submitDisabled = useMemo(() => {
@@ -111,6 +111,7 @@ export default (props: Partial<ContactDetailsProps>) => {
   };
 
   const onSave = () => {
+    console.log(input);
     dispatch(
       updateContact({
         contactId: props.route.params?.id,
@@ -139,7 +140,12 @@ export default (props: Partial<ContactDetailsProps>) => {
   }, [calls, props.route.params]);
 
   useEffect(() => {
-    setInput(contactDetailsQuery?.data);
+    setInput({
+      firstName: contactDetailsQuery?.data?.firstName,
+      lastName: contactDetailsQuery?.data?.lastName,
+      age: contactDetailsQuery?.data?.age,
+      photo: contactDetailsQuery?.data?.photo,
+    });
     setSelectedImage(
       contactDetailsQuery?.data?.photo.replace('http://', 'https://'),
     );
