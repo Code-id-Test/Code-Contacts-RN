@@ -13,7 +13,6 @@ import {
   MediaType,
   launchImageLibrary,
 } from 'react-native-image-picker';
-import { useNavigation } from '@react-navigation/core';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { createContact } from '../../store/actions';
@@ -34,6 +33,7 @@ interface NewContactProps {
     lastName: string;
     age: number;
   }) => void;
+  navigation: any;
 }
 
 export default (props: NewContactProps) => {
@@ -44,7 +44,6 @@ export default (props: NewContactProps) => {
     maxWidth: 2000,
   };
   const dispatch = useDispatch();
-  const navigation = useNavigation();
   const insets = useSafeAreaInsets();
   const lastNameRef = useRef<TextInput>(null);
   const ageRef = useRef<TextInput>(null);
@@ -94,7 +93,7 @@ export default (props: NewContactProps) => {
         data: input,
       }),
     );
-    navigation.goBack();
+    props.navigation.goBack();
   };
 
   return (
