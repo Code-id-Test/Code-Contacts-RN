@@ -16,7 +16,7 @@ import {
 import { useNavigation } from '@react-navigation/core';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { updateContact } from '../../store/actions';
+import { createContact } from '../../store/actions';
 import { Button, Modal, Spacer, Text } from '../components';
 import FastImage from 'react-native-fast-image';
 
@@ -90,8 +90,7 @@ export default (props: NewContactProps) => {
 
   const onSubmit = () => {
     dispatch(
-      updateContact({
-        contactId: '',
+      createContact({
         data: input,
       }),
     );
