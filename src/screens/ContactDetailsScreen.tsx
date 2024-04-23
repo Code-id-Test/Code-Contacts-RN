@@ -52,6 +52,7 @@ export default (props: Partial<ContactDetailsProps>) => {
   const [calls, setCalls] = useState(false);
   const [showPickerModal, setShowPickerModal] = useState(false);
   const [showURLModal, setShowURLModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState('');
   const { data: contactDetailsQuery } = useSelector(
@@ -111,15 +112,17 @@ export default (props: Partial<ContactDetailsProps>) => {
   };
 
   const onSave = () => {
-    console.log(input);
     dispatch(
       updateContact({
         contactId: props.route.params?.id,
         data: input,
-        onSuccess: () => setLoading(false),
+        onSuccess: () => {
+          setLoading(false);
+        },
         onError: () => setLoading(false),
       }),
     );
+    setShowSuccessModal(true);
   };
 
   useEffect(() => {
@@ -214,6 +217,18 @@ export default (props: Partial<ContactDetailsProps>) => {
             }}
           />
         </View>
+      </Modal>
+      <Modal
+        useActionButtons
+        visible={showSuccessModal}
+        title="Successfully Updated"
+        onClose={() => {
+          setShowSuccessModal(false);
+        }}
+        onAccept={() => {
+          setShowSuccessModal(false);
+        }}>
+        Contact updated successfully
       </Modal>
       <Modal
         useActionButtons
